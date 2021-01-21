@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { checkInputField, inputBorderColor } from './InputUtils';
+import { checkInputField, inputBorderColor } from './inputUtils.js';
 
 const TextInput = (props) => {
   const { type, label, name, handleChange, handleBlur, errors, touched, values, textarea } = props;
