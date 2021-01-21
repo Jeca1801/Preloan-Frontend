@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import TableRow from "./TableRow";
 import TextInput from "./TextInput";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
 
@@ -30,17 +31,16 @@ const CustomerForm = () => {
     setTableRow((row) => [...row, values]);
   };
 
-  console.log(tableRow);
-  //   const Table = ({ row }) => <li>{row}</li>;
-
-  const renObjData = tableRow.map(function (col, idx) {
+  const renderTable = tableRow.map(function (row, idx) {
     return (
-      <div key={idx}>
-        <p>{col.creditorName}</p>
-        <p>{col.loanAmount}</p>
-        <p>{col.monthlyFee}</p>
-        <p>{col.apr}</p>
-      </div>
+      <Row key={idx}>
+          <TableRow
+            creditorName={row.creditorName}
+            loanAmount={row.loanAmount}
+            monthlyFee={row.monthlyFee}
+            apr={row.apr}
+          />
+      </Row>
     );
   });
 
@@ -106,13 +106,7 @@ const CustomerForm = () => {
           </Form>
         )}
       </Formik>
-      {renObjData}
-      {/* {tableRow.map((row, i) => (
-           <Table
-           row={row}
-           key={row + i}
-         />
-      ))} */}
+      {renderTable}
     </>
   );
 };

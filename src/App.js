@@ -1,6 +1,6 @@
 import React from "react";
 import CustomerForm from "./form/CustomerForm";
-import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (
