@@ -1,4 +1,5 @@
 import React from "react";
+import TextInput from './TextInput';
 import { Form, Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
@@ -48,8 +49,7 @@ const CustomerForm = () => {
         <Form onSubmit={handleSubmit}>
           <TextInput
             type="text"
-            name="name"
-            label="Meal name"
+            name="creditorName"
             values={values}
             errors={errors}
             touched={touched}
@@ -58,7 +58,7 @@ const CustomerForm = () => {
           />
           <TextInput
             type="text"
-            name="description"
+            name="loanAmount"
             label="Description"
             values={values}
             errors={errors}
@@ -69,7 +69,7 @@ const CustomerForm = () => {
           />
           <TextInput
             type="text"
-            name="price"
+            name="monthlyFee"
             label="Price (in SEK)"
             values={values}
             errors={errors}
@@ -77,10 +77,18 @@ const CustomerForm = () => {
             handleChange={handleChange}
             handleBlur={handleBlur}
           />
-          <MealInstructionsInput values={values} />
-          <MealIngredientInput values={values} />
+           <TextInput
+            type="text"
+            name="apr"
+            label="Price (in SEK)"
+            values={values}
+            errors={errors}
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+          />
           <pre>{JSON.stringify(values, null, 2)}</pre>
-          <Button type="submit">Add Meal!</Button>
+          <Button type="submit">Save!</Button>
         </Form>
       )}
     </Formik>
