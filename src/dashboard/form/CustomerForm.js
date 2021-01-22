@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import TableRow from "./TableRow";
-import TableRowTotal from "./TableRowTotal";
+import React, { useEffect } from "react";
 import TextInput from "./TextInput";
 import { Form, Button, Row } from "react-bootstrap";
 import * as yup from "yup";
@@ -27,29 +25,17 @@ const initialValues = {
   apr: 0,
 };
 
-const CustomerForm = () => {
-  const [tableRow, setTableRow] = useState([]);
+const CustomerForm = ({ setTableRow, tableRow }) => {
   const onFormSubmit = (values) => {
-    const storage = localStorage.getItem('preExistingLoan')
-    if (typeof storage !== 'undefined' && storage !== null){
-      console.log("hello")
-    }
-    console.log(storage)
     setTableRow((row) => [...row, values]);
+    if (localStorage.getItem("preExistingLoan") === null) {
+      localStorage.setItem("preExistingLoan", []);
+    }
   };
 
-  const renderTable = tableRow.map(function (row, idx) {
-    return (
-      <Row key={idx}>
-        <TableRow
-          creditorName={row.creditorName}
-          loanAmount={row.loanAmount}
-          monthlyFee={row.monthlyFee}
-          apr={row.apr}
-        />
-      </Row>
-    );
-  });
+  useEffect(() => {
+        localStorage.setItem("preExistingLoan", JSON.stringify(tableRow));
+  }, [tableRow]);
 
   return (
     <div>
@@ -113,9 +99,6 @@ const CustomerForm = () => {
           </Form>
         )}
       </Formik>
-      {renderTable}
-      <hr />
-      <TableRowTotal tableRow={tableRow} />
     </div>
   );
 };

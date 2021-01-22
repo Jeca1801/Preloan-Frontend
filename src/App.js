@@ -1,11 +1,11 @@
 import React from "react";
-import CustomerForm from "./form/CustomerForm";
+import DashBoard from "./dashboard/DashBoard";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
     <div>
-      <CustomerForm />
+      <DashBoard />
     </div>
   );
 };
