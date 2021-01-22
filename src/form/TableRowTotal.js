@@ -1,21 +1,48 @@
-import React from "react";
-import { Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Col, Row } from "react-bootstrap";
 
-const TableRowTotal = ({ creditorName, loanAmount, monthlyFee, apr }) => {
+const TableRowTotal = ({ tableRow }) => {
+  const calculateTotalLoanAmount =
+    tableRow.length > 0 &&
+    tableRow
+      .map((row) => row.loanAmount)
+      .reduce((sum, val) => sum + parseInt(val), 0);
+
+  const calculateTotalMonthFee =
+    tableRow.length > 0 &&
+    tableRow
+      .map((row) => row.monthlyFee)
+      .reduce((sum, val) => sum + parseInt(val), 0);
+
+  const sumAprAndLoan =
+    tableRow.length > 0 &&
+    tableRow.reduce(
+      (sum, val) => sum + (val["apr"] / 100) * val["loanAmount"],
+      0
+    );
+
+  const calculateTotalApr =
+    sumAprAndLoan && (sumAprAndLoan / calculateTotalLoanAmount) * 100;
+
   return (
     <>
-      <Col>
-        <h2>Loan amount:</h2>
-        <h3>{loanAmount}</h3>
-      </Col>
-      <Col>
-        <h2>Montly Fee:</h2>
-        <h3>{monthlyFee}</h3>
-      </Col>
-      <Col>
-        <h2>Apr:</h2>
-        <h3>{apr}</h3>
-      </Col>
+      <Row>
+        <Col>
+          <h2>Total:</h2>
+        </Col>
+        <Col>
+          <h2>Loan amount:</h2>
+          <h3>{calculateTotalLoanAmount}</h3>
+        </Col>
+        <Col>
+          <h2>Montly Fee:</h2>
+          <h3>{calculateTotalMonthFee}</h3>
+        </Col>
+        <Col>
+          <h2>APR:</h2>
+          <h3>{calculateTotalApr && calculateTotalApr.toFixed(2)}</h3>
+        </Col>
+      </Row>
     </>
   );
 };
