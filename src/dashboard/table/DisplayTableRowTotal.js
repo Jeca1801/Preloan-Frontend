@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { CustomerContext } from "../../context/CustomerContext";
-import { Col, Row } from "react-bootstrap";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
-const TableRowTotal = () => {
+const DisplayTableRowTotal = () => {
   const { preLoan } = useContext(CustomerContext);
 
   const calculateTotalLoanAmount =
@@ -29,25 +30,22 @@ const TableRowTotal = () => {
 
   return (
     <>
-      <Row>
-        <Col>
-          <h2>Total:</h2>
-        </Col>
-        <Col>
-          <h2>Loan amount:</h2>
-          <h3>{calculateTotalLoanAmount}</h3>
-        </Col>
-        <Col>
-          <h2>Montly Fee:</h2>
-          <h3>{calculateTotalMonthFee}</h3>
-        </Col>
-        <Col>
-          <h2>APR:</h2>
-          <h3>{calculateTotalApr && calculateTotalApr.toFixed(2)}</h3>
-        </Col>
-      </Row>
+      <TableRow>
+        <TableCell component="th" scope="row">
+          <h4>Total:</h4>
+        </TableCell>
+        <TableCell>
+          <h5>{calculateTotalLoanAmount}</h5>
+        </TableCell>
+        <TableCell>
+          <h5>{calculateTotalMonthFee}</h5>
+        </TableCell>
+        <TableCell>
+          <h5>{calculateTotalApr && calculateTotalApr.toFixed(2)}</h5>
+        </TableCell>
+      </TableRow>
     </>
   );
 };
 
-export default TableRowTotal;
+export default DisplayTableRowTotal;
