@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import TextInput from "./TextInput";
-import { Form, Button, Row } from "react-bootstrap";
+import { CustomerContext } from "../../context/CustomerContext";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
 import "./CustomerForm.css";
@@ -25,36 +26,39 @@ const initialValues = {
   apr: 0,
 };
 
-const CustomerForm = ({ setTableRow, tableRow }) => {
+const CustomerForm = ({ setTableRow }) => {
+  const { dispatch } = useContext(CustomerContext);
   const onFormSubmit = (values) => {
     setTableRow((row) => [...row, values]);
-    if (localStorage.getItem("preExistingLoan") === null) {
-      localStorage.setItem("preExistingLoan", []);
-    }
+    dispatch({
+      type: "ADD_BOOK",
+      book: {
+        creditorName: values.creditorName,
+        loanAmount: values.loanAmount,
+        monthlyFee: values.monthlyFee,
+        apr: values.apr,
+      },
+    });
   };
 
-  useEffect(() => {
-        localStorage.setItem("preExistingLoan", JSON.stringify(tableRow));
-  }, [tableRow]);
-
   return (
-    <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={newSchema}
-        onSubmit={(values) => {
-          onFormSubmit(values);
-        }}
-      >
-        {({
-          values,
-          errors,
-          touched,
-          handleSubmit,
-          handleChange,
-          handleBlur,
-        }) => (
-          <Form className="form-wrapper" onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={newSchema}
+      onSubmit={(values) => {
+        onFormSubmit(values);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleSubmit,
+        handleChange,
+        handleBlur,
+      }) => (
+        <Row className="form-wrapper">
+          <Form onSubmit={handleSubmit}>
             <TextInput
               type="text"
               name="creditorName"
@@ -95,11 +99,16 @@ const CustomerForm = ({ setTableRow, tableRow }) => {
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
-            <Button type="submit">Save</Button>
+
+            <div className="button-wrapper">
+              <Button type="submit" variant="primary" size="lg">
+                Save
+              </Button>
+            </div>
           </Form>
-        )}
-      </Formik>
-    </div>
+        </Row>
+      )}
+    </Formik>
   );
 };
 

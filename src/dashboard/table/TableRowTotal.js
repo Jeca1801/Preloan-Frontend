@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { CustomerContext } from "../../context/CustomerContext";
 import { Col, Row } from "react-bootstrap";
 
-const TableRowTotal = ({ tableRow }) => {
+const TableRowTotal = () => {
+  const { preLoan } = useContext(CustomerContext);
+
   const calculateTotalLoanAmount =
-    tableRow.length > 0 &&
-    tableRow
+    preLoan.length > 0 &&
+    preLoan
       .map((row) => row.loanAmount)
       .reduce((sum, val) => sum + parseInt(val), 0);
 
   const calculateTotalMonthFee =
-    tableRow.length > 0 &&
-    tableRow
+    preLoan.length > 0 &&
+    preLoan
       .map((row) => row.monthlyFee)
       .reduce((sum, val) => sum + parseInt(val), 0);
 
   const sumAprAndLoan =
-    tableRow.length > 0 &&
-    tableRow.reduce(
+    preLoan.length > 0 &&
+    preLoan.reduce(
       (sum, val) => sum + (val["apr"] / 100) * val["loanAmount"],
       0
     );
