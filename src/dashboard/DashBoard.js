@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import CustomerForm from "./form/CustomerForm";
-import { Container } from 'react-bootstrap';
 import DisplayTable from "./table/DisplayTable";
+import { Container } from "react-bootstrap";
+import './DashBoard.css';
 
 const DashBoard = () => {
   const [tableRow, setTableRow] = useState([]);
   return (
-    <>
-      <Container>
-        <CustomerForm setTableRow={setTableRow} tableRow={tableRow} />
-      </Container>
-      <DisplayTable/>
-    </>
+    <Container className="dashboard-wrapper">
+      <CustomerForm setTableRow={setTableRow} tableRow={tableRow} />
+      <DisplayTable />
+    </Container>
   );
 };
 

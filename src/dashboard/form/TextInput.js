@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Col } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 import { checkInputField, inputBorderColor } from "./inputUtils.js";
 
 const TextInput = (props) => {
@@ -15,9 +15,9 @@ const TextInput = (props) => {
     textarea,
   } = props;
   return (
-    <Col xs={12}>
-      <Form.Group>
-        <Form.Label>{label}</Form.Label>
+    <Form.Group as={Row}>
+      <Form.Label className="pl-3"sm="2">{label}</Form.Label>
+      <Col xs={12}>
         <Form.Control
           type={type}
           name={name}
@@ -27,9 +27,10 @@ const TextInput = (props) => {
           style={inputBorderColor(errors, touched, values, name)}
           as={textarea}
         ></Form.Control>
-        {checkInputField(errors, touched, name)}
-      </Form.Group>
-    </Col>
+      </Col>
+
+      {checkInputField(errors, touched, name)}
+    </Form.Group>
   );
 };
 

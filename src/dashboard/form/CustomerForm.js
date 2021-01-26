@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import TextInput from "./TextInput";
 import { CustomerContext } from "../../context/CustomerContext";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik } from "formik";
 import "./CustomerForm.css";
@@ -31,8 +31,8 @@ const CustomerForm = ({ setTableRow }) => {
   const onFormSubmit = (values) => {
     setTableRow((row) => [...row, values]);
     dispatch({
-      type: "ADD_BOOK",
-      book: {
+      type: "ADD_PRE_LOAN",
+      preLoan: {
         creditorName: values.creditorName,
         loanAmount: values.loanAmount,
         monthlyFee: values.monthlyFee,
@@ -57,7 +57,7 @@ const CustomerForm = ({ setTableRow }) => {
         handleChange,
         handleBlur,
       }) => (
-        <Row className="form-wrapper">
+        <Container className="form-wrapper">
           <Form onSubmit={handleSubmit}>
             <TextInput
               type="text"
@@ -99,14 +99,13 @@ const CustomerForm = ({ setTableRow }) => {
               handleChange={handleChange}
               handleBlur={handleBlur}
             />
-
-            <div className="button-wrapper">
-              <Button type="submit" variant="primary" size="lg">
+            <Col className="button-wrapper">
+              <Button type="submit" variant="success" size="lg">
                 Save
               </Button>
-            </div>
+            </Col>
           </Form>
-        </Row>
+        </Container>
       )}
     </Formik>
   );

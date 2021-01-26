@@ -1,8 +1,8 @@
 .form-wrapper {
-  width: 30%;
-  border: 1px solid #d3d3d3;
-  padding: 30px;
-  margin-bottom: 3rem;
+  padding: 1rem;
+  border: 0.2rem solid #ececec;
+  margin-bottom: 1rem;
+  width: 50%;
 }
 
 .button-wrapper {
